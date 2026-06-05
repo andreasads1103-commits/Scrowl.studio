@@ -1,0 +1,100 @@
+/* ===================== Footer ===================== */
+.footer {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  color: #1e1b4b;
+  padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 80px) 32px;
+}
+
+.footerGiant {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  transform: translateX(-50%);
+  font-family: "Heroes", serif;
+  font-size: 26vw;
+  line-height: 0.75;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: rgba(76, 29, 149, 0.07);
+  pointer-events: none;
+  user-select: none;
+}
+
+.footerCenter {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 36px;
+}
+
+.footerTitle {
+  font-family: var(--font-body);
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  color: #1e1b4b;
+}
+
+.footerCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 44px;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #4c1d95 0%, #831843 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 40px rgba(131, 24, 67, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.footerCta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 50px rgba(131, 24, 67, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.footerBottom {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(80px, 12vw, 160px);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footerCopy {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(76, 29, 149, 0.45);
+}
+
+.footerLinks {
+  display: flex;
+  gap: 24px;
+}
+
+.footerLink {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(76, 29, 149, 0.6);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+.footerLink:hover { color: #831843; }
