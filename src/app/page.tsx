@@ -10,6 +10,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Preloader } from "@/components/ui/preloader";
 import styles from "./page.module.css";
 
+// Détection mobile (responsive piloté en JS car styles inline)
+function useIsMobile(breakpoint = 820) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 // Filtre SVG de distorsion pour l'effet "liquid glass" réel (utilisé via backdrop-filter: url(#container-glass))
 function GlassFilter() {
   return (
@@ -44,6 +56,8 @@ export default function Home() {
     els.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
   }, []);
+
+  const isMobile = useIsMobile();
 
   return (
     <main style={{
@@ -112,13 +126,14 @@ export default function Home() {
               fontWeight: 500,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
-              lineHeight: 1,
-              whiteSpace: "nowrap",
+              lineHeight: isMobile ? 1.5 : 1,
+              whiteSpace: isMobile ? "normal" : "nowrap",
+              maxWidth: isMobile ? "30ch" : "none",
               background: "linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #831843 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              margin: "0 0 40px",
+              margin: isMobile ? "0 auto 40px" : "0 0 40px",
               opacity: 0.75,
             }}
           >
@@ -706,20 +721,23 @@ const LONGS = [
 ];
 
 function LongFormatSection() {
+  const isMobile = useIsMobile();
+  const scale = isMobile ? 0.32 : 0.6;
   return (
     <section style={{ padding: "20px 0 90px", background: "transparent", overflow: "hidden" }}>
-      {/* 2 colonnes : texte à gauche, carousel horizontal (réduit, identique) à droite */}
+      {/* 2 colonnes (desktop) / empilé (mobile) : texte + carousel horizontal */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "1fr auto",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr auto",
+        justifyItems: isMobile ? "center" : "stretch",
         alignItems: "center",
-        gap: "clamp(16px, 3vw, 56px)",
+        gap: isMobile ? 24 : "clamp(16px, 3vw, 56px)",
         maxWidth: 1320,
         margin: "0 auto",
-        padding: "0 clamp(24px, 5vw, 80px)",
+        padding: "0 clamp(20px, 5vw, 80px)",
       }}>
         <FadeUp delay={120}>
-          <div className="liquid-glass" style={{ position: "relative", display: "flex", flexDirection: "column", gap: 18, padding: "clamp(28px, 3vw, 40px)", borderRadius: 24 }}>
+          <div className="liquid-glass" style={{ position: "relative", display: "flex", flexDirection: "column", gap: 18, padding: "clamp(24px, 3vw, 40px)", borderRadius: 24, textAlign: isMobile ? "center" : "left", alignItems: isMobile ? "center" : "flex-start" }}>
             <span style={{ fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(139,92,246,0.6)" }}>
               Format long
             </span>
@@ -734,8 +752,8 @@ function LongFormatSection() {
 
         <FadeUp delay={200}>
           {/* Carousel complet mis à l'échelle : rendu identique à l'original, juste réduit */}
-          <div style={{ width: 1000 * 0.6, height: 520 * 0.6, overflow: "hidden" }}>
-            <div style={{ width: 1000, height: 520, transformOrigin: "top left", transform: "scale(0.6)" }}>
+          <div style={{ width: 1000 * scale, height: 520 * scale, overflow: "hidden" }}>
+            <div style={{ width: 1000, height: 520, transformOrigin: "top left", transform: `scale(${scale})` }}>
               <VideoCarousel ids={LONGS} vertical={false} />
             </div>
           </div>
@@ -917,6 +935,7 @@ const FAQ = [
 
 function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
+  const isMobile = useIsMobile();
 
   return (
     <section id="faq" style={{ padding: "60px clamp(24px,5vw,80px) 40px", background: "transparent", scrollMarginTop: 100 }}>
@@ -924,8 +943,8 @@ function FaqSection() {
         maxWidth: 1200,
         margin: "0 auto",
         display: "grid",
-        gridTemplateColumns: "1.15fr 0.85fr",
-        gap: "clamp(32px, 5vw, 72px)",
+        gridTemplateColumns: isMobile ? "1fr" : "1.15fr 0.85fr",
+        gap: isMobile ? 32 : "clamp(32px, 5vw, 72px)",
         alignItems: "stretch",
       }}>
         {/* Colonne droite — texte + FAQ en dessous */}
@@ -1055,6 +1074,8 @@ function FaqSection() {
 }
 
 function PortfolioSection() {
+  const isMobile = useIsMobile();
+  const scale = isMobile ? 0.44 : 0.62;
   return (
     <section id="realisations" style={{ padding: "40px 0 0", background: "transparent", overflow: "hidden", scrollMarginTop: 100 }}>
 
@@ -1065,10 +1086,11 @@ function PortfolioSection() {
           fontWeight: 700,
           lineHeight: 1.15,
           letterSpacing: "-0.03em",
-          marginBottom: 56,
-          paddingLeft: "clamp(48px, 10vw, 160px)",
+          marginBottom: isMobile ? 32 : 56,
+          paddingLeft: isMobile ? "clamp(24px, 6vw, 48px)" : "clamp(48px, 10vw, 160px)",
           paddingRight: "clamp(24px, 5vw, 80px)",
           paddingBottom: "0.12em",
+          textAlign: isMobile ? "center" : "left",
           background: "linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #831843 100%)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
@@ -1078,27 +1100,28 @@ function PortfolioSection() {
         </h2>
       </FadeUp>
 
-      {/* 2 colonnes : carousel (réduit, identique) à gauche, texte à droite */}
+      {/* 2 colonnes (desktop) / empilé (mobile) : carousel + texte */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "auto 1fr",
+        gridTemplateColumns: isMobile ? "1fr" : "auto 1fr",
+        justifyItems: isMobile ? "center" : "stretch",
         alignItems: "center",
-        gap: "clamp(16px, 3vw, 56px)",
+        gap: isMobile ? 24 : "clamp(16px, 3vw, 56px)",
         maxWidth: 1320,
         margin: "0 auto",
-        padding: "0 clamp(24px, 5vw, 80px)",
+        padding: "0 clamp(20px, 5vw, 80px)",
       }}>
         <FadeUp delay={120}>
           {/* Carousel complet mis à l'échelle : rendu identique à l'original, juste réduit */}
-          <div style={{ width: 760 * 0.62, height: 760 * 0.62, overflow: "hidden" }}>
-            <div style={{ width: 760, height: 760, transformOrigin: "top left", transform: "scale(0.62)" }}>
+          <div style={{ width: 760 * scale, height: 760 * scale, overflow: "hidden" }}>
+            <div style={{ width: 760, height: 760, transformOrigin: "top left", transform: `scale(${scale})` }}>
               <VideoCarousel ids={SHORTS} vertical />
             </div>
           </div>
         </FadeUp>
 
         <FadeUp delay={200}>
-          <div className="liquid-glass" style={{ position: "relative", display: "flex", flexDirection: "column", gap: 18, padding: "clamp(28px, 3vw, 40px)", borderRadius: 24 }}>
+          <div className="liquid-glass" style={{ position: "relative", display: "flex", flexDirection: "column", gap: 18, padding: "clamp(24px, 3vw, 40px)", borderRadius: 24, textAlign: isMobile ? "center" : "left", alignItems: isMobile ? "center" : "flex-start" }}>
             <span style={{ fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(139,92,246,0.6)" }}>
               Format court
             </span>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charte graphique — Scrowl Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Heroes';
+    src: url('public/fonts/Heroes.ttf') format('truetype');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+
+  :root{
+    --void:#1e1b4b;
+    --violet:#4c1d95;
+    --purple:#701a75;
+    --wine:#831843;
+    --accent:#8b5cf6;
+    --gold:#f59e0b;
+    --ivory:#faf9ff;
+    --ink:#16102a;
+    --grad:linear-gradient(135deg,#1e1b4b 0%,#4c1d95 45%,#701a75 80%,#831843 100%);
+    --font-d:'Heroes',serif;
+    --font-b:'Outfit',sans-serif;
+    --font-m:'JetBrains Mono',monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:var(--font-b);color:var(--ink);-webkit-font-smoothing:antialiased;background:#e9e6f5;}
+
+  .page{
+    position:relative;
+    width:210mm;min-height:297mm;
+    margin:0 auto;
+    padding:24mm 22mm;
+    background-color:var(--ivory);
+    background-image:
+      linear-gradient(rgba(76,29,149,0.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(76,29,149,0.05) 1px,transparent 1px),
+      radial-gradient(ellipse 70% 50% at 12% 8%,rgba(216,210,254,0.55) 0%,transparent 60%),
+      radial-gradient(ellipse 60% 55% at 92% 6%,rgba(251,207,232,0.40) 0%,transparent 60%);
+    background-size:54px 54px,54px 54px,auto,auto;
+    overflow:hidden;
+    page-break-after:always;
+  }
+  .page:last-child{page-break-after:auto;}
+
+  .eyebrow{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:rgba(76,29,149,.6);}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+  .h-title{font-family:var(--font-d);line-height:.9;letter-spacing:-.01em;}
+  h2.sec{font-family:var(--font-b);font-weight:800;letter-spacing:-.02em;font-size:30px;margin-bottom:6px;}
+  .sec-sub{color:rgba(40,30,70,.6);font-size:13px;margin-bottom:26px;max-width:62ch;line-height:1.6;}
+
+  .glass{
+    background:rgba(255,255,255,.5);
+    border:1px solid rgba(255,255,255,.65);
+    box-shadow:0 10px 40px rgba(120,80,200,.10),inset 0 1px 0 rgba(255,255,255,.7);
+    border-radius:20px;backdrop-filter:blur(8px);
+  }
+
+  /* ---------- COVER ---------- */
+  .cover{display:flex;flex-direction:column;justify-content:center;min-height:249mm;}
+  .cover .logo{font-family:var(--font-d);font-size:130px;line-height:.82;}
+  .cover .sub{font-family:var(--font-d);font-size:54px;line-height:.92;color:var(--ink);opacity:.92;margin-top:6px;}
+  .cover .meta{margin-top:46px;display:flex;gap:34px;flex-wrap:wrap;}
+  .cover .meta div span{display:block;}
+  .cover .bar{width:54px;height:4px;background:var(--grad);border-radius:9px;margin:30px 0;}
+  .cover .foot{position:absolute;bottom:22mm;left:22mm;right:22mm;display:flex;justify-content:space-between;font-size:11px;color:rgba(76,29,149,.55);letter-spacing:.08em;}
+
+  /* ---------- COLORS ---------- */
+  .swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .sw{border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,.06);box-shadow:0 6px 20px rgba(30,20,60,.08);}
+  .sw .chip{height:96px;}
+  .sw .info{padding:12px 14px;background:#fff;}
+  .sw .name{font-weight:700;font-size:13px;}
+  .sw .hex{font-family:var(--font-m);font-size:11px;color:rgba(40,30,70,.6);margin-top:3px;text-transform:uppercase;}
+  .grad-band{height:120px;border-radius:18px;background:var(--grad);margin-top:18px;display:flex;align-items:flex-end;padding:16px;}
+  .grad-band span{font-family:var(--font-m);font-size:11px;color:rgba(255,255,255,.85);}
+
+  /* ---------- TYPO ---------- */
+  .type-row{padding:22px 24px;margin-bottom:14px;}
+  .type-row .label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+  .type-row .label .nm{font-weight:700;font-size:15px;}
+  .type-row .label .use{font-size:11px;color:rgba(76,29,149,.6);letter-spacing:.12em;text-transform:uppercase;}
+  .specimen-d{font-family:var(--font-d);font-size:62px;line-height:.9;}
+  .specimen-b{font-family:var(--font-b);font-size:30px;font-weight:600;}
+  .specimen-b small{display:block;font-weight:400;font-size:15px;color:rgba(40,30,70,.7);margin-top:8px;letter-spacing:.02em;}
+  .specimen-m{font-family:var(--font-m);font-size:22px;}
+  .weights{font-family:var(--font-b);font-size:13px;color:rgba(40,30,70,.55);margin-top:10px;}
+
+  /* ---------- EFFECTS ---------- */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .card{padding:24px;border-radius:18px;}
+  .card h3{font-size:15px;font-weight:700;margin-bottom:8px;}
+  .card p{font-size:12.5px;line-height:1.6;color:rgba(40,30,70,.7);}
+  .demo-glass{height:90px;border-radius:14px;margin-top:14px;background:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.7);box-shadow:inset 1px 1px 1px rgba(255,255,255,.85),inset 0 0 14px 4px rgba(255,255,255,.2),0 8px 30px rgba(120,80,200,.15);}
+  .demo-grid{height:90px;border-radius:14px;margin-top:14px;background-image:linear-gradient(rgba(76,29,149,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(76,29,149,.12) 1px,transparent 1px);background-size:18px 18px;background-color:#fff;}
+  .demo-pill{margin-top:14px;display:inline-flex;padding:12px 26px;border-radius:999px;background:var(--grad);color:#fff;font-weight:600;font-size:13px;box-shadow:0 8px 26px rgba(131,24,67,.35);}
+  .demo-stars{margin-top:14px;color:var(--gold);font-size:20px;letter-spacing:3px;}
+
+  /* ---------- VOICE / SOCIAL ---------- */
+  .pills{display:flex;flex-wrap:wrap;gap:10px;}
+  .vpill{padding:9px 16px;border-radius:999px;background:#fff;border:1px solid rgba(76,29,149,.18);font-size:12.5px;font-weight:500;color:var(--violet);}
+  .quotes{margin-top:18px;display:flex;flex-direction:column;gap:12px;}
+  .quote{padding:18px 22px;font-size:15px;font-weight:600;color:var(--ink);}
+  .dodont{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;}
+  .dd{padding:20px 22px;border-radius:16px;}
+  .dd.do{background:rgba(76,29,149,.06);border:1px solid rgba(76,29,149,.18);}
+  .dd.dont{background:rgba(131,24,67,.05);border:1px solid rgba(131,24,67,.18);}
+  .dd h4{font-size:13px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+  .dd.do h4{color:var(--violet);} .dd.dont h4{color:var(--wine);}
+  .dd li{font-size:12.5px;line-height:1.7;color:rgba(40,30,70,.78);margin-left:16px;}
+  .formats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px;}
+  .fmt{border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,.06);background:#fff;box-shadow:0 6px 20px rgba(30,20,60,.08);}
+  .fmt .vis{background:var(--grad);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.9);font-family:var(--font-d);font-size:30px;}
+  .fmt .vis.post{height:120px;} .fmt .vis.story{height:160px;} .fmt .vis.sq{height:130px;}
+  .fmt .cap{padding:10px 12px;font-size:11px;}
+  .fmt .cap b{font-size:12.5px;display:block;}
+  .fmt .cap span{font-family:var(--font-m);color:rgba(40,30,70,.55);font-size:10px;}
+</style>
+</head>
+<body>
+
+<!-- ============ PAGE 1 — COUVERTURE ============ -->
+<section class="page cover">
+  <p class="eyebrow">Charte graphique · 2026</p>
+  <div class="bar"></div>
+  <h1 class="logo grad-text">SCROWL</h1>
+  <div class="sub">STUDIO</div>
+  <p style="margin-top:28px;font-size:16px;max-width:46ch;line-height:1.6;color:rgba(40,30,70,.72);">
+    Identité visuelle du studio de montage vidéo & motion design. Guide de référence pour des publications cohérentes sur les réseaux sociaux.
+  </p>
+  <div class="meta">
+    <div><span class="eyebrow">Studio</span><span style="font-weight:700;margin-top:4px;">Scrowl Studio</span></div>
+    <div><span class="eyebrow">Fondateur</span><span style="font-weight:700;margin-top:4px;">Andréas</span></div>
+    <div><span class="eyebrow">Localisation</span><span style="font-weight:700;margin-top:4px;">Montluçon (03)</span></div>
+  </div>
+  <div class="foot"><span>SCROWL STUDIO — CHARTE GRAPHIQUE</span><span>andreas.ads1103@gmail.com</span></div>
+</section>
+
+<!-- ============ PAGE 2 — COULEURS ============ -->
+<section class="page">
+  <p class="eyebrow">01 — Fondamentaux</p>
+  <h2 class="sec grad-text">Palette de couleurs</h2>
+  <p class="sec-sub">Une dominante violet → magenta profonde, posée sur un ivoire clair. Le dégradé signature porte tous les éléments forts (titres, boutons, accents).</p>
+
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#1e1b4b"></div><div class="info"><div class="name">Indigo profond</div><div class="hex">#1E1B4B</div></div></div>
+    <div class="sw"><div class="chip" style="background:#4c1d95"></div><div class="info"><div class="name">Violet</div><div class="hex">#4C1D95</div></div></div>
+    <div class="sw"><div class="chip" style="background:#701a75"></div><div class="info"><div class="name">Pourpre</div><div class="hex">#701A75</div></div></div>
+    <div class="sw"><div class="chip" style="background:#831843"></div><div class="info"><div class="name">Magenta vin</div><div class="hex">#831843</div></div></div>
+    <div class="sw"><div class="chip" style="background:#8b5cf6"></div><div class="info"><div class="name">Violet clair (accent)</div><div class="hex">#8B5CF6</div></div></div>
+    <div class="sw"><div class="chip" style="background:#f59e0b"></div><div class="info"><div class="name">Or (notation / étoiles)</div><div class="hex">#F59E0B</div></div></div>
+    <div class="sw"><div class="chip" style="background:#faf9ff;border-bottom:1px solid #eee"></div><div class="info"><div class="name">Ivoire (fond)</div><div class="hex">#FAF9FF</div></div></div>
+    <div class="sw"><div class="chip" style="background:#16102a"></div><div class="info"><div class="name">Encre (texte)</div><div class="hex">#16102A</div></div></div>
+    <div class="sw"><div class="chip" style="background:linear-gradient(135deg,#d8d2fe,#fbcfe8)"></div><div class="info"><div class="name">Halos pastel</div><div class="hex">#D8D2FE / #FBCFE8</div></div></div>
+  </div>
+
+  <div class="grad-band"><span>DÉGRADÉ SIGNATURE — linear-gradient(135°, #1E1B4B → #4C1D95 → #701A75 → #831843)</span></div>
+</section>
+
+<!-- ============ PAGE 3 — TYPOGRAPHIE ============ -->
+<section class="page">
+  <p class="eyebrow">02 — Fondamentaux</p>
+  <h2 class="sec grad-text">Typographies</h2>
+  <p class="sec-sub">Un display brut et marquant pour le nom et les grands titres, une grotesque géométrique nette pour le corps, un mono pour les détails techniques (compteurs, légendes).</p>
+
+  <div class="type-row glass">
+    <div class="label"><span class="nm">Heroes</span><span class="use">Display · Titres · Logo</span></div>
+    <div class="specimen-d grad-text">SCROWL</div>
+    <div class="weights">Réservé aux grands titres et au nom de marque. Toujours en capitales.</div>
+  </div>
+
+  <div class="type-row glass">
+    <div class="label"><span class="nm">Outfit</span><span class="use">Corps · Sous-titres · Boutons</span></div>
+    <div class="specimen-b">Votre histoire mérite d'être vue.
+      <small>ABCDEFGHIJKLM abcdefghijklm 0123456789 — 300 / 400 / 500 / 600 / 700 / 800</small>
+    </div>
+  </div>
+
+  <div class="type-row glass">
+    <div class="label"><span class="nm">JetBrains Mono</span><span class="use">Compteurs · Légendes</span></div>
+    <div class="specimen-m">01 / 06 — CHARGEMENT 100%</div>
+  </div>
+</section>
+
+<!-- ============ PAGE 4 — EFFETS & LOGO ============ -->
+<section class="page">
+  <p class="eyebrow">03 — Univers visuel</p>
+  <h2 class="sec grad-text">Effets &amp; textures</h2>
+  <p class="sec-sub">Quatre signatures visuelles récurrentes assurent la cohérence : verre dépoli, grille de fond, boutons dégradés en pilule et notation dorée.</p>
+
+  <div class="grid2">
+    <div class="card glass"><h3>Liquid glass</h3><p>Panneaux translucides (verre dépoli, reflets, bordure lumineuse). Utilisés pour les cartes, FAQ, témoignages.</p><div class="demo-glass"></div></div>
+    <div class="card glass"><h3>Grille de fond</h3><p>Maille fine violette (~5 % d'opacité) sur l'ivoire, présente sur tout le site pour la profondeur.</p><div class="demo-grid"></div></div>
+    <div class="card glass"><h3>Bouton pilule dégradé</h3><p>CTA en capsule arrondie, dégradé signature, ombre colorée. Réservé aux actions clés (Réserver).</p><div class="demo-pill">Réserver ↗</div></div>
+    <div class="card glass"><h3>Notation dorée</h3><p>Étoiles or (#F59E0B) pour la preuve sociale et les témoignages.</p><div class="demo-stars">★★★★★</div></div>
+  </div>
+
+  <div class="card glass" style="margin-top:16px;display:flex;align-items:center;gap:24px;">
+    <img src="public/logo-scrowl.png" alt="Logo" style="width:96px;height:96px;object-fit:contain;flex-shrink:0;">
+    <div><h3>Logo</h3><p>Le « S » cristallin 3D et le wordmark <b>SCROWL</b> (Heroes). Laisser une marge de respiration ≥ la hauteur du S. Ne jamais déformer, recolorer ni ajouter d'ombre étrangère.</p></div>
+  </div>
+</section>
+
+<!-- ============ PAGE 5 — TON & RÉSEAUX ============ -->
+<section class="page">
+  <p class="eyebrow">04 — Application</p>
+  <h2 class="sec grad-text">Ton de voix &amp; réseaux</h2>
+  <p class="sec-sub">Direct, confiant, orienté résultat. On parle à la première personne, on valorise l'impact et le storytelling.</p>
+
+  <div class="pills">
+    <span class="vpill">Direct</span><span class="vpill">Confiant</span><span class="vpill">Cinématographique</span>
+    <span class="vpill">Orienté résultat</span><span class="vpill">Sans jargon</span><span class="vpill">Première personne</span>
+  </div>
+
+  <div class="quotes">
+    <div class="quote glass grad-text">« Votre histoire mérite d'être vue. »</div>
+    <div class="quote glass grad-text">« Le monteur qui empêche votre audience de scroller pour la concurrence. »</div>
+  </div>
+
+  <div class="dodont">
+    <div class="dd do"><h4>À faire</h4>
+      <ul>
+        <li>Dégradé signature sur les titres forts</li>
+        <li>Fonds ivoire + grille fine</li>
+        <li>Beaucoup d'espace, mise en page épurée</li>
+        <li>Police Heroes en capitales pour les accroches</li>
+      </ul>
+    </div>
+    <div class="dd dont"><h4>À éviter</h4>
+      <ul>
+        <li>Couleurs hors palette / fonds criards</li>
+        <li>Polices génériques (Arial, Roboto…)</li>
+        <li>Déformer ou recolorer le logo</li>
+        <li>Surcharger : trop de textes ou d'effets</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top:26px;font-size:15px;font-weight:700;">Formats réseaux sociaux</h3>
+  <div class="formats">
+    <div class="fmt"><div class="vis post">SCROWL</div><div class="cap"><b>Post / Feed</b><span>1080 × 1350 px (4:5)</span></div></div>
+    <div class="fmt"><div class="vis story">SCROWL</div><div class="cap"><b>Story / Reel</b><span>1080 × 1920 px (9:16)</span></div></div>
+    <div class="fmt"><div class="vis sq">SCROWL</div><div class="cap"><b>Carré</b><span>1080 × 1080 px (1:1)</span></div></div>
+  </div>
+</section>
+
+</body>
+</html>

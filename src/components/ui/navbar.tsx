@@ -4,11 +4,15 @@ import { useState, useEffect } from "react";
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
+    const onResize = () => setIsMobile(window.innerWidth < 820);
+    onResize();
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onResize); };
   }, []);
 
   return (
@@ -67,9 +71,10 @@ export const Navbar = () => {
         </a>
 
         {/* Separator */}
-        <div style={{ width: 1, height: 18, background: "rgba(30,20,60,0.12)", flexShrink: 0 }} />
+        {!isMobile && <div style={{ width: 1, height: 18, background: "rgba(30,20,60,0.12)", flexShrink: 0 }} />}
 
-        {/* Links — center */}
+        {/* Links — center (masqués sur mobile) */}
+        {!isMobile && (
         <div style={{ display: "flex", alignItems: "center", gap: 2, padding: "0 8px" }}>
           {[
             { label: "Réalisations", href: "#realisations" },
@@ -104,9 +109,10 @@ export const Navbar = () => {
             </a>
           ))}
         </div>
+        )}
 
         {/* Separator */}
-        <div style={{ width: 1, height: 18, background: "rgba(30,20,60,0.12)", flexShrink: 0 }} />
+        {!isMobile && <div style={{ width: 1, height: 18, background: "rgba(30,20,60,0.12)", flexShrink: 0 }} />}
 
         {/* CTA */}
         <a
