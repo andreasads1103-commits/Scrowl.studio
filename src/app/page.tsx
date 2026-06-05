@@ -7,6 +7,7 @@ import { RippleBackground } from "@/components/ui/ripple-background";
 import { Navbar } from "@/components/ui/navbar";
 import { FadeUp } from "@/components/ui/fade-up";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Preloader } from "@/components/ui/preloader";
 import styles from "./page.module.css";
 
 // Filtre SVG de distorsion pour l'effet "liquid glass" réel (utilisé via backdrop-filter: url(#container-glass))
@@ -57,6 +58,7 @@ export default function Home() {
       `,
       backgroundSize: "64px 64px, 64px 64px, auto, auto, auto, auto",
     }}>
+      <Preloader />
       <GlassFilter />
       <Navbar />
       <RippleBackground>
