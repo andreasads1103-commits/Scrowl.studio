@@ -383,7 +383,6 @@ function VideoSection() {
             width: "clamp(230px, 28vw, 380px)",
             height: "auto",
             zIndex: 0,
-            mixBlendMode: "multiply",
             maskImage: "linear-gradient(to bottom, #000 0%, #000 58%, transparent 90%), linear-gradient(to left, transparent 0%, #000 26%)",
             maskComposite: "intersect",
             WebkitMaskImage: "linear-gradient(to bottom, #000 0%, #000 58%, transparent 90%), linear-gradient(to left, transparent 0%, #000 26%)",
@@ -561,15 +560,16 @@ function VideoCarousel({ ids, vertical = true, cardWidth, edgeFade = "22%", spre
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+  const isMobile = useIsMobile();
   const n = ids.length;
 
   const handleNext = useCallback(() => setCurrentIndex(i => (i + 1) % n), [n]);
 
   useEffect(() => {
-    if (hovered || playingId) return;
+    if (hovered || playingId || isMobile) return; // pas d'auto-défilement sur mobile (fluidité)
     const t = setInterval(handleNext, 4000);
     return () => clearInterval(t);
-  }, [handleNext, hovered, playingId]);
+  }, [handleNext, hovered, playingId, isMobile]);
 
   // Dimensions selon l'orientation
   const cardW = cardWidth ?? (vertical ? 330 : 600);
@@ -591,8 +591,8 @@ function VideoCarousel({ ids, vertical = true, cardWidth, edgeFade = "22%", spre
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* 3D carousel with perspective */}
-        <div style={{ position:"relative", width:"100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center", perspective:"1100px" }}>
+        {/* 3D carousel with perspective (aplati sur mobile pour la fluidité) */}
+        <div style={{ position:"relative", width:"100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center", perspective: isMobile ? "none" : "1100px" }}>
           {ids.map((id, index) => {
             const offset = index - currentIndex;
             const total = ids.length;
@@ -603,7 +603,7 @@ function VideoCarousel({ ids, vertical = true, cardWidth, edgeFade = "22%", spre
             if (abs > 3) return null;
             const scale = 1 - abs * 0.12;
             const tx = pos * txPct;
-            const ry = pos * -tilt;
+            const ry = isMobile ? 0 : pos * -tilt;
             const blur = abs <= 1 ? 0 : (abs - 1) * 2.5;
             const veil = isCenter ? 0 : Math.min(0.62, 0.22 + (abs - 1) * 0.2);
             const opacity = abs >= 3 ? 0.5 : 1;
@@ -631,14 +631,24 @@ function VideoCarousel({ ids, vertical = true, cardWidth, edgeFade = "22%", spre
                   pointerEvents: abs > 1 ? "none" : "auto",
                 }}
               >
-                {/* Vidéo en autoplay muet + boucle, ou placeholder si emplacement vide */}
+                {/* Mobile : miniature légère (perf). Desktop : autoplay muet + boucle. */}
                 {id ? (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&modestbranding=1&rel=0&showinfo=0`}
-                    title=""
-                    allow="autoplay; encrypted-media"
-                    style={{ position:"absolute", top:"50%", left:"50%", width:"100%", height:"100%", transform:`translate(-50%,-50%) scale(${iframeScale})`, border:"none", pointerEvents:"none" }}
-                  />
+                  isMobile ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+                      alt=""
+                      loading="lazy"
+                      style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", pointerEvents:"none" }}
+                    />
+                  ) : (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&loop=1&playlist=${id}&controls=0&playsinline=1&modestbranding=1&rel=0&showinfo=0`}
+                      title=""
+                      allow="autoplay; encrypted-media"
+                      style={{ position:"absolute", top:"50%", left:"50%", width:"100%", height:"100%", transform:`translate(-50%,-50%) scale(${iframeScale})`, border:"none", pointerEvents:"none" }}
+                    />
+                  )
                 ) : (
                   <div style={{ position:"absolute",inset:0,opacity:0.05,backgroundImage:"linear-gradient(rgba(255,255,255,0.8) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.8) 1px,transparent 1px)",backgroundSize:"22px 22px",pointerEvents:"none" }} />
                 )}
@@ -962,11 +972,12 @@ function FaqSection() {
             <img
               src="/presentation.svg"
               alt="FAQ — Scrowl Studio"
+              loading="lazy"
               style={{
                 width: "100%",
                 height: "100%",
                 objectFit: "contain",
-                filter: "drop-shadow(0 24px 50px rgba(76,29,149,0.25))",
+                filter: isMobile ? "none" : "drop-shadow(0 24px 50px rgba(76,29,149,0.25))",
                 maskImage: "linear-gradient(to bottom, #000 60%, transparent 96%), linear-gradient(to left, transparent 2%, #000 26%)",
                 maskComposite: "intersect",
                 WebkitMaskImage: "linear-gradient(to bottom, #000 60%, transparent 96%), linear-gradient(to left, transparent 2%, #000 26%)",

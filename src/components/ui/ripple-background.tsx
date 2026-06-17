@@ -40,8 +40,9 @@ export const RippleBackground = ({ children }: { children?: React.ReactNode }) =
     }, 2000);
   };
 
-  // Auto-generate ambient ripples
+  // Auto-generate ambient ripples (désactivé sur mobile pour la fluidité)
   useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 820) return;
     const interval = setInterval(() => {
       if (!containerRef.current) return;
 

@@ -37,12 +37,14 @@ export const Navbar = () => {
           padding: "10px 12px 10px 22px",
           gap: 6,
           borderRadius: "9999px",
-          /* Glass layers */
-          background: scrolled
+          /* Glass layers — sur mobile, fond plus opaque sans backdrop-filter (perf iOS) */
+          background: isMobile
+            ? "rgba(250, 249, 255, 0.9)"
+            : scrolled
             ? "rgba(255, 255, 255, 0.18)"
             : "rgba(255, 255, 255, 0.12)",
-          backdropFilter: "blur(24px) saturate(180%)",
-          WebkitBackdropFilter: "blur(24px) saturate(180%)",
+          backdropFilter: isMobile ? "none" : "blur(24px) saturate(180%)",
+          WebkitBackdropFilter: isMobile ? "none" : "blur(24px) saturate(180%)",
           /* Liquid glass borders & shadows */
           border: "1px solid rgba(255, 255, 255, 0.45)",
           borderBottom: "1px solid rgba(255, 255, 255, 0.25)",

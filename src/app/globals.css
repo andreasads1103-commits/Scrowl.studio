@@ -132,6 +132,15 @@ body {
     inset 0 0 14px 4px rgba(255, 255, 255, 0.12) !important;
 }
 
+/* Mobile : allège le verre (le filtre SVG url() rame sur iOS Safari) */
+@media (max-width: 820px) {
+  .liquid-glass {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(255, 255, 255, 0.62) !important;
+  }
+}
+
 /* ── Reveal au scroll (même effet que FadeUp, sans wrapper) ── */
 .reveal-rise {
   opacity: 0;
